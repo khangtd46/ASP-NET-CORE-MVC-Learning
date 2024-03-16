@@ -1,0 +1,13 @@
+﻿@if (ViewBag.ErrorTitle == null)
+{
+	<h3>an error occured</h3>
+	<hr />
+	<h3>Exception Details: @ViewBag.ExceptionPath</h3>
+	<h3>Exception Message: @ViewBag.ExceptionMessage</h3>
+	<h3>Stack Trace: @ViewBag.StackTrace</h3>
+}
+else
+{
+	<h1>@ViewBag.ErrorTitle</h1>
+	<h4>@ViewBag.ErrorMessage</h4>
+}

@@ -1,0 +1,59 @@
+﻿@model EmployeeEditViewModel
+@{
+	var PhotoPath = "/images/noimage.jpg";
+	if (Model != null)
+	{
+		PhotoPath = "/images/" + Model.ExistingPhotoPath; //tai sao "~/images/" ko dc??
+	}
+	ViewBag.Title = "Edit Employee";
+	//var PhotoPath = "/images/" + (Model.ExistingPhotoPath ?? "nomaige.jpg"); //tai sao "~/images/" ko dc??
+}
+<form enctype="multipart/form-data" asp-action="Edit" asp-controller="Company" method="post">
+	<div>
+		
+		<input asp-for="Id" hidden/>
+		<input asp-for="ExistingPhotoPath" hidden/>
+		
+	</div>
+	<div>
+		<label asp-for="Name"></label>
+		<input asp-for="Name" placeholder="Name"/>
+		<span asp-validation-for="Name"></span>
+	</div>
+	<div>
+		<label asp-for="Email"></label>
+		<input asp-for="Email" placeholder="Email" />
+		<span asp-validation-for="Email"></span>
+	</div>
+	<div>
+		<label asp-for="Department"></label>
+		<select asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+			<option value="">Please Select</option>
+		</select>
+		<span asp-validation-for="Department"></span>
+	</div>
+	<div asp-validation-summary="All"></div>
+
+	<div>
+		<label asp-for="Photo"></label>
+		<div>
+			<input asp-for="Photo" />
+			<label asp-for="Photo">Click here to change photo</label>
+		</div>
+
+	</div>
+	<div>
+		<img src="@PhotoPath" asp-append-version=true/>
+	</div>
+	<div>
+		<button type="submit">Edit</button>
+	</div>
+	<div>
+		<a asp-action="Index"
+		   class="btn btn-primary">Cancel</a>
+	</div>
+</form>
+
+@section Scripts {
+    <script src="~/js/customscript.js"></script>
+}

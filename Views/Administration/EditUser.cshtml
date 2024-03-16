@@ -1,0 +1,71 @@
+﻿@model EditUserViewModel
+@{
+	ViewBag.Title = "Edit User";
+}
+<h1>Edit User</h1>
+<form method="post" asp-action="EditUser" asp-controller="Administration">
+	<label asp-for="Id"></label>
+	<input asp-for="Id" disabled size="@Model.Id.Length" />
+	<br />
+	<label asp-for="Email"></label>
+	<input asp-for="Email" />
+	<span asp-validation-for="Email"></span>
+	<br />
+	<label asp-for="UserName"></label>
+	<input asp-for="UserName" />
+	<span asp-validation-for="UserName"></span>
+	<br />
+	<label asp-for="City"></label>
+	<input asp-for="City" />
+	<br />
+	<div asp-validation-summary="All"></div>
+	<button type="submit">Register</button>
+	<a asp-action="ListUser" asp-controller="Administration">Cancel</a>
+</form>
+
+<div>
+	<h1>User Roles</h1>
+	@if (Model.Roles.Any())
+	{
+		foreach (string role in Model.Roles)
+		{
+			<div class="card mb-3">
+				<div class="card-header">
+					Role: @role
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<div class="card">
+			<div class="card-header">
+				No role
+			</div>
+		</div>
+	}
+	<a asp-action="ManageUserRole" asp-controller="Administration" asp-route-userId="@Model.Id">Manage Roles</a>
+</div>
+<div>
+	<h1>User Claims</h1>
+	@if (Model.Claims.Any())
+	{
+		foreach (var claim in Model.Claims)
+		{
+			<div class="card mb-3">
+				<div class="card-header">
+					@claim
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<div class="card">
+			<div class="card-header">
+				No claim
+			</div>
+		</div>
+	}
+	<a asp-action="ManageUserClaim" asp-controller="Administration" asp-route-userId="@Model.Id">Manage Claims</a>
+</div>

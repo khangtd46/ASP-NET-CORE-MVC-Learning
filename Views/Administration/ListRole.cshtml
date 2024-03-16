@@ -1,0 +1,55 @@
+﻿@model IEnumerable<IdentityRole>
+@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService authorizationService;
+@{
+	ViewBag.Title = "All Roles";
+}
+<h1>All Roles</h1>
+
+@if (Model.Any())
+	{
+	<a asp-action="CreateRole" asp-controller="Administration" class="btn btn-primary mb-3">Create Role</a>
+		foreach (IdentityRole role in Model)
+		{
+		<div class="card mb-3">
+			<div class="card-header">
+				Role id: @role.Id
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">@role.Name</h5>
+			</div>
+			
+		</div>
+		
+
+		<form method="post" asp-action="DeleteRole" asp-controller="Administration" asp-route-id="@role.Id">
+			
+				<a asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id" class="btn btn-primary">Edit</a>
+			
+			
+
+			<span id="ConfirmDeleteSpan_@role.Id" style="display:none">
+				<span>Are you sure you want to delete?</span>
+				<button type="submit">Yes</button>
+				<a href="#" onclick="confirmDeleteRole('@role.Id',false)">No</a>
+			</span>
+			<span id="DeleteSpan_@role.Id">
+				<a href="#" onclick="confirmDeleteRole('@role.Id',true)">Delete</a>
+			</span>
+		</form>
+		}
+	}
+else
+	{
+		<div class="card">
+			<div class ="card-header">
+				No Role
+			</div>
+		<a asp-action="CreateRole" asp-controller="Administration" class="btn btn-primary mb-3">Create Role</a>
+		</div>
+	}
+
+
+@section Scripts {
+	<script src="~/js/customscript.js"></script>
+}

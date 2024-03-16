@@ -1,0 +1,57 @@
+﻿@model LoginViewModel;
+@{
+	ViewBag.Title = "User Login";
+}
+<div class="row">
+	<div class="col-md-6">
+		<h1>User Login</h1>
+		<div style="width:70%;">
+			<form method="post" asp-action="Login" asp-controller="Account" asp-route-ReturnUrl="@Model.ReturnURL">
+				<div asp-validation-summary="All"></div>
+				@*  <input hidden asp-for="ReturnURL" />  *@
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1" style="width:100px;">User Name</span>
+					<input asp-for="Email" class="form-control"/>
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1" style="width:100px;"> Password </span>
+					<input asp-for="Password" class="form-control"/>
+				</div>
+				<div div class="form-check">
+					<label asp-for="RememberMe" class="form-check-label">
+						<input asp-for="RememberMe" class="form-check-input" />
+						@Html.DisplayNameFor(m => m.RememberMe)
+					</label>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">Login</button>
+					<div>
+						<a asp-action="ForgotPassword" style="text-decoration:none;">Forgot Password</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<h1>External Login</h1>
+		@{
+			if (Model.ExternalLogins.Count == 0)
+			{
+				<h1>No External Login Configured</h1>
+			}
+			else
+			{
+				<form method="post" asp-action="ExternalLogin" asp-route-ReturnUrl="@Model.ReturnURL">
+					@foreach (var provider in Model.ExternalLogins)
+					{
+						<button type="submit" class="btn btn-primary" value="@provider.Name" 
+						name="provider" title="Login using your @provider.Name account">@provider.Name</button>
+					}
+
+				</form>
+			}
+
+		}
+
+	</div>
+</div>

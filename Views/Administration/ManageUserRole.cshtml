@@ -1,0 +1,24 @@
+﻿@model List<ManageUserRoleViewModel>
+@{
+	ViewBag.Title = "Manage User Role";
+	var userId = ViewBag.userId;
+}
+<h1>Manage User Role</h1>
+<form method="post">
+	@if (Model.Any())
+	{
+		@for (int i = 0; i < Model.Count; i++)
+		{
+
+			<div>
+				<input asp-for="@Model[i].userID" hidden />
+				<input asp-for="@Model[i].RoleName" hidden />
+				<input asp-for="@Model[i].IsSelected" class="form-check-input" />
+				<label asp-for="@Model[i].IsSelected">@Model[i].RoleName</label>
+			</div>
+		}
+	}
+	<div asp-validation-summary="All"></div>
+	<button type="submit">Update</button>
+	<a asp-action="EditUser" asp-route-id="@Model[0].userID">Cancel</a>
+</form>

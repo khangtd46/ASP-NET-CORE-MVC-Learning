@@ -1,0 +1,38 @@
+﻿@model EmployeeCreateViewModel
+@{
+	ViewBag.PageTitle = "Create Employee";
+}
+<form enctype="multipart/form-data" asp-action="Create" asp-controller="Company" method="post">
+
+	<div>
+		<label asp-for="Name"></label>
+		<input asp-for="Name" />
+		<span asp-validation-for="Name"></span>
+	</div>
+	<div>
+		<label asp-for="Email"></label>
+		<input asp-for="Email" />
+		<span asp-validation-for="Email"></span>
+	</div>
+	<div>
+		<label asp-for="Department"></label>
+		<select asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">	
+			<option value="">Please Select</option>
+		</select>
+		<span asp-validation-for="Department"></span>
+	</div>
+	<div asp-validation-summary="All"></div>
+	
+	<div>
+		<label asp-for="Photo"></label>
+		<div>
+			<input asp-for="Photo" />
+			<label asp-for="Photo">Select Photo...</label>
+		</div>
+	
+	</div>
+	<div>
+		<button type="submit">Create</button>
+	</div>
+
+</form>
